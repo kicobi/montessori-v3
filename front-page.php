@@ -145,6 +145,10 @@ function workstation_front_page_widgets()
 		}
 	}
 
+
+
+
+
 	// Matsedel
 
 	// Query the latest entry from this custom post type.
