@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Genesis Framework.
  *
@@ -13,12 +14,10 @@
 
 // This file handles single entries, but only exists for the sake of child theme forward compatibility.
 
-
-
 // Check if user is logged in
 if (!is_user_logged_in()) {
 
-// User is not logged in. Redirect browser to #login modal form.
+    // User is not logged in. Redirect browser to #login modal form.
     $url = home_url('/#login');
     //$url = home_url('/wp-login.php');
     header("Location: $url");
@@ -26,6 +25,14 @@ if (!is_user_logged_in()) {
 } else {
     // User is logged in.
 
-genesis();
+    genesis();
+}
 
+// Get the URL segments
+$uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+// If this is a Matsedel page, show message
+if ($uriSegments[1] == 'matsedel') {
+    echo '<style>.site-container { display:none; }#msg { font-size: 2em; width: 100vw; text-align: center; margin: calc(50vh - 1em) auto auto auto; }</style>';
+    echo '<div id="msg"><p>Matsedel visas endast på startsidan.</p></div>';
 }
