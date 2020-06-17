@@ -2544,6 +2544,7 @@ ul.menu-secondary {
 .sales-pitch__part-1 p {
   padding: 60px;
   max-width: 50ch;
+  float: right;
 }
 
 .sales-pitch__part-2 {
