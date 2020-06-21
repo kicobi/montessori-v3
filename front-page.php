@@ -150,145 +150,153 @@ function workstation_front_page_widgets()
 
 
 	// Matsedel
+	if (get_field('dolj_matsedel') == 1) {
+		// do nothing 
+	} else {
+		// show matsedel 
 
-	// Query the latest entry from this custom post type.
-	$args = array('post_type' => 'matsedel', 'posts_per_page' => 1);
-	$loop = new WP_Query($args);
+		// Query the latest entry from this custom post type.
+		$args = array('post_type' => 'matsedel', 'posts_per_page' => 1);
+		$loop = new WP_Query($args);
 ?>
 
-	<?php while ($loop->have_posts()) : $loop->the_post(); ?>
+		<?php while ($loop->have_posts()) : $loop->the_post(); ?>
 
-		<div class="matsedel">
+			<div class="matsedel">
 
-			<h3><?php the_title(); ?></h3>
+				<h3><?php the_title(); ?></h3>
 
-			<ul>
+				<ul>
 
-				<?php if (have_rows('mandag')) : ?>
-					<?php while (have_rows('mandag')) : the_row(); ?>
+					<?php if (have_rows('mandag')) : ?>
+						<?php while (have_rows('mandag')) : the_row(); ?>
 
-						<li class="dag">
-							<h4>Måndag</h4>
+							<li class="dag">
+								<h4>Måndag</h4>
 
-							<?php
-							if (get_sub_field('stangt') == 1) {
-								echo '<p><strong>Stängt</strong></p>';
-							} else {
-								echo '<p>';
-								echo '<strong>Lunch</strong><br />';
-								echo get_sub_field('lunch') . '<br />';
-								echo '<strong>Mellanmål</strong><br />';
-								echo get_sub_field('mellanmal');
-								echo '</p>';
-							}
-							?>
+								<?php
+								if (get_sub_field('stangt') == 1) {
+									echo '<p><strong>Stängt</strong></p>';
+								} else {
+									echo '<p>';
+									echo '<strong>Lunch</strong><br />';
+									echo get_sub_field('lunch') . '<br />';
+									echo '<strong>Mellanmål</strong><br />';
+									echo get_sub_field('mellanmal');
+									echo '</p>';
+								}
+								?>
 
-						</li>
+							</li>
 
-					<?php endwhile; ?>
-				<?php endif; ?>
+						<?php endwhile; ?>
+					<?php endif; ?>
 
-				<?php if (have_rows('tisdag')) : ?>
-					<?php while (have_rows('tisdag')) : the_row(); ?>
+					<?php if (have_rows('tisdag')) : ?>
+						<?php while (have_rows('tisdag')) : the_row(); ?>
 
-						<li class="dag">
-							<h4>Tisdag</h4>
+							<li class="dag">
+								<h4>Tisdag</h4>
 
-							<?php
-							if (get_sub_field('stangt') == 1) {
-								echo '<p><strong>Stängt</strong></p>';
-							} else {
-								echo '<p>';
-								echo '<strong>Lunch</strong><br />';
-								echo get_sub_field('lunch') . '<br />';
-								echo '<strong>Mellanmål</strong><br />';
-								echo get_sub_field('mellanmal');
-								echo '</p>';
-							}
-							?>
+								<?php
+								if (get_sub_field('stangt') == 1) {
+									echo '<p><strong>Stängt</strong></p>';
+								} else {
+									echo '<p>';
+									echo '<strong>Lunch</strong><br />';
+									echo get_sub_field('lunch') . '<br />';
+									echo '<strong>Mellanmål</strong><br />';
+									echo get_sub_field('mellanmal');
+									echo '</p>';
+								}
+								?>
 
-						</li>
+							</li>
 
-					<?php endwhile; ?>
-				<?php endif; ?>
+						<?php endwhile; ?>
+					<?php endif; ?>
 
-				<?php if (have_rows('onsdag')) : ?>
-					<?php while (have_rows('onsdag')) : the_row(); ?>
+					<?php if (have_rows('onsdag')) : ?>
+						<?php while (have_rows('onsdag')) : the_row(); ?>
 
-						<li class="dag">
-							<h4>Onsdag</h4>
+							<li class="dag">
+								<h4>Onsdag</h4>
 
-							<?php
-							if (get_sub_field('stangt') == 1) {
-								echo '<p><strong>Stängt</strong></p>';
-							} else {
-								echo '<p>';
-								echo '<strong>Lunch</strong><br />';
-								echo get_sub_field('lunch') . '<br />';
-								echo '<strong>Mellanmål</strong><br />';
-								echo get_sub_field('mellanmal');
-								echo '</p>';
-							}
-							?>
+								<?php
+								if (get_sub_field('stangt') == 1) {
+									echo '<p><strong>Stängt</strong></p>';
+								} else {
+									echo '<p>';
+									echo '<strong>Lunch</strong><br />';
+									echo get_sub_field('lunch') . '<br />';
+									echo '<strong>Mellanmål</strong><br />';
+									echo get_sub_field('mellanmal');
+									echo '</p>';
+								}
+								?>
 
-						</li>
+							</li>
 
-					<?php endwhile; ?>
-				<?php endif; ?>
+						<?php endwhile; ?>
+					<?php endif; ?>
 
-				<?php if (have_rows('torsdag')) : ?>
-					<?php while (have_rows('torsdag')) : the_row(); ?>
+					<?php if (have_rows('torsdag')) : ?>
+						<?php while (have_rows('torsdag')) : the_row(); ?>
 
-						<li class="dag">
-							<h4>Torsdag</h4>
+							<li class="dag">
+								<h4>Torsdag</h4>
 
-							<?php
-							if (get_sub_field('stangt') == 1) {
-								echo '<p><strong>Stängt</strong></p>';
-							} else {
-								echo '<p>';
-								echo '<strong>Lunch</strong><br />';
-								echo get_sub_field('lunch') . '<br />';
-								echo '<strong>Mellanmål</strong><br />';
-								echo get_sub_field('mellanmal');
-								echo '</p>';
-							}
-							?>
+								<?php
+								if (get_sub_field('stangt') == 1) {
+									echo '<p><strong>Stängt</strong></p>';
+								} else {
+									echo '<p>';
+									echo '<strong>Lunch</strong><br />';
+									echo get_sub_field('lunch') . '<br />';
+									echo '<strong>Mellanmål</strong><br />';
+									echo get_sub_field('mellanmal');
+									echo '</p>';
+								}
+								?>
 
-						</li>
+							</li>
 
-					<?php endwhile; ?>
-				<?php endif; ?>
+						<?php endwhile; ?>
+					<?php endif; ?>
 
-				<?php if (have_rows('fredag')) : ?>
-					<?php while (have_rows('fredag')) : the_row(); ?>
+					<?php if (have_rows('fredag')) : ?>
+						<?php while (have_rows('fredag')) : the_row(); ?>
 
-						<li class="dag">
-							<h4>Fredag</h4>
+							<li class="dag">
+								<h4>Fredag</h4>
 
-							<?php
-							if (get_sub_field('stangt') == 1) {
-								echo '<p><strong>Stängt</strong></p>';
-							} else {
-								echo '<p>';
-								echo '<strong>Lunch</strong><br />';
-								echo get_sub_field('lunch') . '<br />';
-								echo '<strong>Mellanmål</strong><br />';
-								echo get_sub_field('mellanmal');
-								echo '</p>';
-							}
-							?>
+								<?php
+								if (get_sub_field('stangt') == 1) {
+									echo '<p><strong>Stängt</strong></p>';
+								} else {
+									echo '<p>';
+									echo '<strong>Lunch</strong><br />';
+									echo get_sub_field('lunch') . '<br />';
+									echo '<strong>Mellanmål</strong><br />';
+									echo get_sub_field('mellanmal');
+									echo '</p>';
+								}
+								?>
 
-						</li>
+							</li>
 
-					<?php endwhile; ?>
-				<?php endif; ?>
+						<?php endwhile; ?>
+					<?php endif; ?>
 
-			</ul>
-		</div>
+				</ul>
+			</div>
 
-		<?php wp_reset_postdata(); ?>
-	<?php endwhile; ?>
+	<?php
+			wp_reset_postdata();
+		endwhile;
+	}
+
+	?>
 
 <?php
 

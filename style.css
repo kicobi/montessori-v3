@@ -91,6 +91,15 @@
 /* Custom styles
 ---------------------------------------------------------------------------------------------------- */
 
+/* Hide extras on archive page */
+.archive-description .archive-title {
+  display: none;
+}
+
+.eckb-categories-archive__body__content {
+  margin-bottom: 10rem;
+}
+
 /* Highlight block styles */
 .markera-1 {
   background-color: var(--light-blue);
@@ -1007,7 +1016,8 @@ input[type="submit"],
 textarea:focus,
 .button,
 .gallery img,
-p.button a {
+p.button a,
+.wp-block-file .wp-block-file__button {
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
@@ -1300,6 +1310,23 @@ p.button a {
   width: auto;
 }
 
+/* !important to override default WP block styles */
+.wp-block-file .wp-block-file__button {
+  background-color: var(--hot) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+  cursor: pointer;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-size: 18px !important;
+  font-size: 1.8rem !important;
+  line-height: 1 !important;
+  text-decoration: none;
+  white-space: normal;
+  width: auto !important;
+}
+
 @media only screen and (min-width: 881px) {
   li.login > a,
   li.logout > a {
@@ -1340,6 +1367,13 @@ p.button a:hover,
 p.button a:focus {
   background-color: #1b242d;
   color: #fff;
+}
+
+/* !important to override default WP block styles */
+.wp-block-file .wp-block-file__button:hover,
+.wp-block-file .wp-block-file__button:focus {
+  background-color: #1b242d !important;
+  color: #fff !important;
 }
 
 p.button {
@@ -2196,8 +2230,8 @@ img.alignright,
 ---------------------------------------------------------------------------------------------------- */
 
 .after-header {
-  border-bottom: 1px solid var(--hot);
-  margin-bottom: 50px;
+  /* border-bottom: 1px solid var(--hot);
+  margin-bottom: 50px; */
   padding: 0;
 }
 
