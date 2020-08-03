@@ -346,3 +346,113 @@ function remove_genesis_page_scripts_box()
  *
  */
 remove_action('genesis_sidebar', 'genesis_do_sidebar');
+
+function wcr_list_users($atts)
+{
+
+	// get the members from different roles
+	$member_query = new WP_User_Query(
+		array(
+			'role__in' 			=> 	array('editor', 'styrelse', 'subscriber'),
+			'orderby'			=>	'display_name',
+			'number'		    =>	1000
+		)
+	);
+	$results = $member_query->get_results();
+
+	// I don't use shortcode_atts because I want to have a dynamic number of attributes
+	// $query = new WP_User_Query($atts);
+	// $results = $query->get_results();
+
+	// no results
+	if (empty($results)) {
+		return;
+	}
+
+	// when we have results
+	ob_start();
+
+	// TEMP - move to styles
+	echo '<style>
+				.entry-content ul.memberlist { margin-left: 0; } 
+				.entry-content ul > li.memberlist__item { font-size: 95%; list-style-type:none; border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 2rem; } 
+				.memberlist__name { font-size: 140%; } 
+			</style>';
+
+	echo '<ul class="memberlist"">';
+	foreach ($results as $item) {
+?>
+		<li class="memberlist__item">
+			<span class="memberlist__name"><?php echo esc_html($item->display_name); ?></span><br />
+
+			<?php
+			// Barn
+			if (esc_html($item->barn) != '') {
+				$barn = esc_html($item->barn);
+				echo 'Barn: ' . $barn . '<br />';
+			}
+			?>
+
+			<?php
+			// Adress rad 1
+			if (esc_html($item->adress_rad_1) != '') {
+				$adress_rad_1 = esc_html($item->adress_rad_1);
+				echo $adress_rad_1 . ' ';
+			}
+
+			// Adress rad 2
+			if (esc_html($item->adress_rad_2) != '') {
+				$adress_rad_2 = esc_html($item->adress_rad_2);
+				echo $adress_rad_2 . ' ';
+			}
+
+			// Postkod
+			if (esc_html($item->postkod) != '') {
+				$postkod = esc_html($item->postkod);
+				echo $postkod . ' ';
+			}
+			?>
+
+			<?php
+			// Stad
+			if (esc_html($item->stad) != '') {
+				$stad = esc_html($item->stad);
+				echo $stad . '<br />';
+			}
+			?>
+
+			<?php echo '<a href="mailto:' . esc_html($item->user_email) . '">' . esc_html($item->user_email) . '</a>'; ?>
+			<?php
+			// Telnr
+			if (esc_html($item->telnr) != '') {
+				$tel = esc_html($item->telnr);
+				echo '<br />Telnr. ' . $tel . '<br />';
+			} else {
+				echo '<br />';
+			}
+			?>
+
+			<?php
+			// Uppdrag
+			if (esc_html($item->uppdrag) != '') {
+				$uppdrag = esc_html($item->uppdrag);
+				echo 'Uppdrag: ' . $uppdrag . '<br />';
+			}
+			?>
+
+			<?php
+			// Andra uppgifter
+			if (esc_html($item->andra_uppgifter) != '') {
+				$andra_uppgifter = esc_html($item->andra_uppgifter);
+				echo $andra_uppgifter . '<br />';
+			}
+			?>
+
+		</li>
+<?php
+	}
+	echo '</ul>';
+	return ob_get_clean();
+}
+
+add_shortcode('list_users', 'wcr_list_users');
