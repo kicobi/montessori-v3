@@ -462,35 +462,36 @@ add_shortcode('list_users', 'wcr_list_users');
  * Redirect 
  **/
 
-function mont_redirect() {
+function mont_redirect()
+{
 
-if (isset($_SERVER['HTTPS']) &&
-($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
-isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-$protocol = 'https://';
+	if (
+		isset($_SERVER['HTTPS']) &&
+		($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+		isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+		$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+	) {
+		$protocol = 'https://';
+	} else {
+		$protocol = 'http://';
+	}
+	$currenturl = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	$currenturl_relative = wp_make_link_relative($currenturl);
+
+	switch ($currenturl_relative) {
+
+		case '/?author=0':
+			$urlto = home_url('/');
+			break;
+
+		default:
+			return;
+	}
+
+	if ($currenturl != $urlto)
+		exit(wp_redirect($urlto));
 }
-else {
-$protocol = 'http://';
-}
-$currenturl = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$currenturl_relative = wp_make_link_relative($currenturl);
-
-switch ($currenturl_relative) {
-
-case '/?author=0':
-$urlto = home_url('/');
-break;
-
-default:
-return;
-
-}
-
-if ($currenturl != $urlto)
-exit( wp_redirect( $urlto ) );
-}
-add_action( 'template_redirect', 'mont_redirect' );
+add_action('template_redirect', 'mont_redirect');
 
 
 /** 
@@ -498,13 +499,32 @@ add_action( 'template_redirect', 'mont_redirect' );
  **/
 add_action('template_redirect', 'mont_disable_author_page');
 
-function mont_disable_author_page() {
-    global $wp_query;
+function mont_disable_author_page()
+{
+	global $wp_query;
 
-    if ( is_author() ) {
-        // Redirect to homepage, set status to 301 permenant redirect. 
-        // Function defaults to 302 temporary redirect. 
-        wp_redirect(get_option('home'), 301); 
-        exit; 
-    }
+	if (is_author()) {
+		// Redirect to homepage, set status to 301 permenant redirect. 
+		// Function defaults to 302 temporary redirect. 
+		wp_redirect(get_option('home'), 301);
+		exit;
+	}
 }
+
+// Prevent Author indexing
+add_action(
+	'template_redirect',
+	function () {
+		if (isset($_GET['author']) || is_author()) {
+			global $wp_query;
+			$wp_query->set_404();
+			status_header(404);
+			nocache_headers();
+		}
+	},
+	1
+);
+add_filter('author_link', function () {
+	return '#';
+}, 99);
+add_filter('the_author_posts_link', '__return_empty_string', 99);
